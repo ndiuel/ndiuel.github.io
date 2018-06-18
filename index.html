@@ -1,1 +1,94 @@
-"hello world" 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe</title>
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border-style: hidden;
+            height: 100%;
+        }
+        .hide{
+            visibility: hidden;
+        }
+        .open{
+            display: block;
+        }
+
+        #notice{
+            font-family: cursive;
+            font-size: 40px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+        }
+        #restart{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .btn-text{
+            color: rgb(233,235,238);
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        button{
+            display: flex;
+            justify-content: center;
+            background-color: teal;
+            width: 50%;
+            height: 20px;
+            border-radius: 5px;
+            border-color: teal;
+        }
+        td{
+            width: 33.333%;
+            height: 33.333%;
+            text-align: center;
+            font-family: cursive;
+            font-weight: bold;
+            font-size: 50px;
+            border: 2px black solid;
+            padding: 10px 10px 10px 10px;
+        }
+        body{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+        }
+        #board{
+            width: 80vw;
+            height: 50vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="board">
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+           </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div><p id="notice">Ongoing</p></div>
+    <div id="restart"><button id="r"><span class="btn-text">Restart</span></button></div>
+    <script src="bundle.js"></script>
+</body>
+</html>
