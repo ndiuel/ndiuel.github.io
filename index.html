@@ -3,71 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TicTacToe</title>
-    <style>
-        table{
-            width: 100%;
-            border-collapse: collapse;
-            border-style: hidden;
-            height: 100%;
-        }
-        .hide{
-            visibility: hidden;
-        }
-        .open{
-            display: block;
-        }
-
-        #notice{
-            font-family: cursive;
-            font-size: 40px;
-            font-weight: bold;
-            color: black;
-            text-align: center;
-        }
-        #restart{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        .btn-text{
-            color: rgb(233,235,238);
-            font-size: 15px;
-            font-weight: bold;
-            text-align: center;
-        }
-        button{
-            display: flex;
-            justify-content: center;
-            background-color: teal;
-            width: 50%;
-            height: 20px;
-            border-radius: 5px;
-            border-color: teal;
-        }
-        td{
-            width: 33.333%;
-            height: 33.333%;
-            text-align: center;
-            font-family: cursive;
-            font-weight: bold;
-            font-size: 50px;
-            border: 2px black solid;
-            padding: 10px 10px 10px 10px;
-        }
-        body{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-        }
-        #board{
-            width: 80vw;
-            height: 50vh;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="second.css">
+    <title>TicTacToe</title>     
 </head>
 <body>
+    <div id="title">
+        <p>TicTacToe</p>
+    </div>
+    <div id="notice">
+        <p> Ongoing </p>
+    </div>
+    <div id="turn">
+        <p>Player 1's Turn</p>
+    </div>
     <div id="board">
         <table>
             <tr>
@@ -79,7 +28,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-           </tr>
+            </tr>
             <tr>
                 <td></td>
                 <td></td>
@@ -87,8 +36,21 @@
             </tr>
         </table>
     </div>
-    <div><p id="notice">Ongoing</p></div>
-    <div id="restart"><button id="r"><span class="btn-text">Restart</span></button></div>
+    <div id="scoreboard">
+        <div class="playerscore" id='firstPlayer'>
+            <div class="player"><p>Player1</p></div>
+            <div class="score"><p>0</p></div>
+        </div>
+        <div class="playerscore" id='secondPlayer'>
+            <div class="player"><p>Player2</p></div>
+            <div class="score"><p>0</p></div>
+        </div>
+    </div>
+    <div id="control">
+        <p class="control" id='restart'>Restart</p>
+        <p class="control" id='reset'>Reset</p>
+    </div>
+
     <script src="bundle.js"></script>
 </body>
 </html>

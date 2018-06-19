@@ -186,8 +186,8 @@ let g = new Game()
 for (let i = 0; i < 9; i++){
     g.elements[i].onclick = () => g.move(i)
 }
-let el = document.getElementById('r')
-r.onclick = () => g.restart()
+let el = document.getElementById('restart')
+el.onclick = () => g.restart()
 
 
 
