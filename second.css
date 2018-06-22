@@ -1,69 +1,123 @@
-body{
-    display: flex;
-    min-width: 95vw;
-    flex-direction: column;
-    align-items: space-between;
-    justify-content: space-between;
-    background-color: black;
-    color: red;
-    font-size: 3vh;
-    font-family: cursive;
-    font-weight: bold;
+html{
+    min-width: 99vw;
+    width: 99vw;
+    max-width: 99vw !important;
     height: 95vh;
 }
-div{
-    max-width: 100%;
-}
-#title{
+body{
+    height: 100%;
     display: flex;
-    justify-content: center;
-    text-align: center;
-    height: auto;
-}
-#notice{
-    display: flex;
-    justify-content: center;
-    height: auto;
-}
-#turn{
-    display: flex;
-    height: auto;
-    justify-content: center;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
 }
 #board{
+    width: 100%;
+    height: 50%;
     display: flex;
     justify-content: center;
-    margin-top: 1vh;
+    align-items: center;
 }
 table{
-    width: 75%;
-    min-height: 50vh;
+    table-layout: fixed;
+    width: 40%;
+    height: 100%;
     border-collapse: collapse;
     border-style: hidden;
 }
 td{
-    border: 2px solid;
     width: 33.333%;
     height: 33.333%;
+    border: 2px #396 solid;
     text-align: center;
-    font-size: 45px;
+    font-family: Lucida Console;
     font-weight: bold;
+    font-size: large;
+    color: #396;
+    cursor: pointer;
+}
+#mode{
+    width: 100%;
+    display: flex;
+    font-size: small;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-family: Lucida Console;
+    font-weight: bold;
+    font-size: medium;
+    color: #396;
+    height: 10%;
+}
+.btn{
+    cursor: pointer;
+    width: 33%;
+    background-color: #396;
+    color: #fff;
+    border-radius: 5px;
+    font-size: large;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#title{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    align-items: center;
+    background-color: #396;
+    font-size: larger;
+    font-weight: bold;
+    text-transform: lowercase;
+    font-family: Lucida Console;
+    border-radius: 5px;
+}
+#notice{
+    display: flex;
+    width: 100%;
+    height: 15%;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    font-family: Lucida Console;
+    color: #396;
 }
 #scoreboard{
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    height: 20%;
+    font-family: Lucida Console;
+    font-weight: bold;
+    font-size: large;
+    color: #396;
 }
 .playerscore{
     display: flex;
-    justify-content: space-between;
+    width: auto;
+    align-items: center;
 }
 .player{
-    margin-right: 1vw;
+    margin-right: 5px;
 }
 #control{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    font-family: Lucida Console;
+    align-items: flex-end;
+    font-size: larger;
+    font-weight: bold;
+    height: 10%;
+    color: #396;
+    width: 100%;
 }
-.control{
-    cursor: pointer;
+@media only screen and (max-width: 600px){
+    table{
+        width: 90%;
+    }
 }

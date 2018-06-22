@@ -18,6 +18,7 @@ class Board{
         if (isMoveValid(index,this)){
             this.cells[index] = value
             return true
+
         }
         return false
     }
@@ -52,15 +53,48 @@ class Board{
         }
         return full == 9
     }
+
+    freespaces(){
+        let arr = []
+        for (let i of range(9)){
+            if (this.cellIsEmpty(i)){
+                arr.push(i)
+            }
+        }
+        return arr
+    }
 }
 
 class Game{
-    constructor(){
+    constructor(mode='single'){
+        this.mode = mode
         this.board = new Board()
-        this.maxplayer = new Player("Ndifreke","X")
-        this.minplayer = new Player("Promise","O")
-        this.currentplayer = this.maxplayer
         this.history = []
+        this.winningCombo = []
+        this.init()
+    }
+
+    assignCombo(){
+        if (!this.isTerminalState() || score(this) == 0){
+            return false
+        }
+        this.toggle()
+        this.winningCombo = checkwin(this.board,this.currentplayer.value)
+        this.toggle()
+        return true
+    }
+
+    init(){
+        if (this.mode == 'single'){
+            this.maxplayer = new Player(this,"Player","X",false)
+            this.minplayer = new Player(this,"Computer","O",true)
+        }
+        else{
+            this.maxplayer = new Player(this,'Player1',"X",false)
+            this.minplayer = new Player(this,'Player2',"O",false)
+        }
+        this.currentplayer = this.maxplayer
+        this.currentplayerHasPlayed = false
     }
 
     toggle(){
@@ -81,21 +115,89 @@ class Game{
         }
         return false
     }
+
+    move(index){
+        if (this.isTerminalState()){
+            return false
+        }
+        if (this.currentplayer.move(index)){
+            this.history.push(index)
+            this.toggle()
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
+    simulate(log=true){
+        while (!this.isTerminalState()){
+            let move = aimove(this.board)
+            this.move(move)
+            if (log){
+                this.board.draw()
+                console.log(" ")
+            }
+
+        }
+        this.assignCombo()
+    }
+    undo(){
+        if (this.isTerminalState() || this.mode == 'single'){
+            return false
+        }
+        let last = this.history.pop()
+        if (last){
+            this.board.cells[last] = " "
+            this.toggle()
+            return true
+        }        
+    }
+    restart(){
+        this.board = new Board()
+        this.history = []
+    }
+    reset(){
+        this.restart()
+        this.maxplayer.empty()
+        this.minplayer.empty()
+    }
 }
 
 class Player{
-    constructor(name,value){
-        this.ai = false
+    constructor(game,name,value,ai=false){
+        this.ai = ai
         this.name = name
         this.value = value
+        this.score = 0
+        this.game = game
     }
+
+    move(index){
+        return this.game.board.move(index,this.value)
+    }
+
+    increase(){
+        this.score+=1
+    }
+
+    decrease(){
+        if (this.score > 0){
+            this.score-=1
+        }
+    }
+
+    empty(){
+        this.score = 0
+    }        
 }
+
 function checkwin(board,value){
     let combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
     
     for (let i of combos){
         if (board.value(i[0]) == value && board.value(i[1]) == value && board.value(i[2]) == value){
-            return true
+            return i
         }
     }
     return false
@@ -117,81 +219,184 @@ function score(game){
         return 0
     }
 }
+
+function choice(arr){
+    return arr[Math.floor(Math.random() * arr.length )]
+}
+
+function range(min,max){
+    if (!min && !max){
+        return false
+    }
+    let arr = []   
+    if (min && max){
+        for (let i = min; i < max; i++){
+            arr.push(i)
+        }
+        return arr
+    }
+    let num
+    if (min) {num = min} else{num = max}
+    for (let i = 0; i < num; i++){
+        arr.push(i)
+    }
+    return arr
+}
+
+function aimove(board){
+    return choice(board.freespaces())
+}
+
 exports.Board = Board
 exports.score = score
 exports.isMoveValid = isMoveValid
 exports.checkwin = checkwin
 exports.Player = Player
 exports.Game = Game
+exports.aimove = aimove
+
+
 
 },{}],2:[function(require,module,exports){
- let util = require('./board.js')
+let logic = require('./board.js')
+let boardCells = document.getElementsByTagName('td')
+let mode = document.getElementById('mode').getElementsByTagName('p')
+let modeBtn = mode[0]
+let modeText = mode[1]
+let notice = document.getElementById('notice').firstChild
+let names = document.getElementsByClassName('player')
+let scores = document.getElementsByClassName('score')
+let firstPlayerName = names[0]
+let firstPlayerScore = scores[0]
+let secondPlayerName = names[1]
+let secondPlayerScore = scores[1]
+let controls = document.getElementById('control').getElementsByClassName('btn')
+let restartBtn = controls[0]
+let undoBtn = controls[1]
+let resetBtn = controls[2]
+let games = []
+let currentGame
+let created = new CustomEvent('start')
+let someone = new CustomEvent('played')
 
- class Game extends util.Game{
-     constructor(){
-        super()
-        let elements = document.getElementsByTagName('td')
-        this.elements = elements
-        this.notice = document.getElementById("notice")
-        this.notice.classList.add("hide")
+function notify(){
+    let text 
+    if (!currentGame.isTerminalState()){
+        text = " "
     }
-    
-    move(index){
-        if (this.isTerminalState()){
-            console.log("invalid")
-            return false
+    else{
+       let score = logic.score(currentGame)
+       if (score == 10){
+           text = currentGame.maxplayer.name + " Has Won" 
+           currentGame.maxplayer.increase()
+           firstPlayerScore.textContent = currentGame.maxplayer.score
         }
-        if (this.board.move(index,this.currentplayer.value)){
-            this.toggle()
-            this.elements[index].textContent = this.board.value(index)
-            this.checkwin()
+        else if (score == -10){
+            text = currentGame.minplayer.name + " Has Won"
+            currentGame.minplayer.increase()
+            secondPlayerScore.textContent = currentGame.minplayer.score
         }
         else{
-            console.log("invalid")
+            text = "It's a draw"
         }
+   }
+    notice.textContent = text
+}
+
+function render(){
+    firstPlayerName.textContent = currentGame.maxplayer.name
+    firstPlayerScore.textContent = currentGame.maxplayer.score
+    secondPlayerScore.textContent = currentGame.minplayer.score
+    secondPlayerName.textContent = currentGame.minplayer.name
+    modeText.textContent = currentGame.mode.toUpperCase() + " PLAYER"
+    drawBoard()
+}
+
+function drawBoard(){
+    for (let i = 0; i < 9; i++){ 
+        boardCells[i].textContent = currentGame.board.value(i)
     }
-    checkwin(){
-        if (this.isTerminalState()){
-            let score = util.score(this)
-            let text
-            if (score == 10){
-                text = this.maxplayer.name + " Has Won"
+}   
+
+function aimove(){
+    if (currentGame.currentplayer.ai){
+        let move = logic.aimove(currentGame.board)
+        console.log(move)
+        if (typeof(move) == "number"){
+            if (currentGame.move(move)){
+                boardCells[move].textContent = currentGame.board.value(move)
+                notify()
             }
-            else if (score == -10){
-                text = this.minplayer.name + " Has Won"
-            }
-            else{
-                text = "Its a draw"
-            }
-            this.alert(text)
-        }
-    }
-    alert(text){
-        this.notice.textContent = text
-        this.notice.classList.remove("hide")
-    }
-    restart(){
-        this.board = new util.Board()
-        this.notice.classList.add("hide")
-        this.redraw()
-    }
-    redraw(){
-        for (let i = 0; i < 9; i++){
-            this.elements[i].textContent = this.board.value(i)
         }
     }
 }
+function getGame(mode='single'){
+    for (let game of games){
+        if (game.mode == mode){
+            currentGame = game
+            window.dispatchEvent(created)
+            return true
+        }
+    }  
+    game = new logic.Game(mode)
+    games.push(game)
+    currentGame = game
+    window.dispatchEvent(created)
+    return true
+}
+modeBtn.onclick = function(){
+    if (currentGame.mode == 'single'){
+        getGame('multi')
+    }
+    else if (currentGame.mode == 'multi'){
+        getGame('single')
+    }
+    notify()
+}
 
-let g = new Game()
+resetBtn.onclick = function(){
+    notice.textContent = " "
+    currentGame.reset()
+    window.dispatchEvent(created)
+}
+
+restartBtn.onclick = function(){
+    notice.textContent = " "
+    currentGame.restart()
+    window.dispatchEvent(created)
+}
+
+undoBtn.onclick = function(){
+    if (currentGame.undo()){
+        console.log('yes')
+        drawBoard()
+    }
+}
+
 for (let i = 0; i < 9; i++){
-    g.elements[i].onclick = () => g.move(i)
+    boardCells[i].onclick = function(){
+        if (currentGame.move(i)){
+            boardCells[i].textContent = currentGame.board.value(i)
+            window.dispatchEvent(someone)
+        }
+    }
 }
-let el = document.getElementById('restart')
-el.onclick = () => g.restart()
 
+window.addEventListener('start',function(){
+    render()
+    aimove()
+})
+window.addEventListener('played',function(){
+    if (currentGame.isTerminalState()){
+        console.log('yes')
+        notify()
+        return
+    }
+    if (currentGame.currentplayer.ai){
+        aimove()
+    }  
+})
 
-
-
-
+getGame()
 
 },{"./board.js":1}]},{},[2]);
