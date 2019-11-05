@@ -1,1 +1,29 @@
-<!doctype html> <html lang=en> <head> <meta charset=UTF-8> <meta name=viewport content="width=device-width,initial-scale=1"> <meta http-equiv=X-UA-Compatible content="ie=edge"> <title>TicTactoe</title> <link href="main.css" rel="stylesheet"></head> <body> <div id=app></div> <script type="text/javascript" src="bundle.js"></script></body> </html>
+<!doctype html>
+<html lang=en>
+
+<head>
+    <meta charset=UTF-8>
+    <meta name=viewport content="width=device-width,initial-scale=1" />
+    <meta http-equiv=X-UA-Compatible content="ie=edge" />
+    <meta name="theme-color" content="#396" />
+    <title>TicTactoe</title>
+    <link href="main.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="tic-256.png" sizes="256x256" />
+    <link rel="icon" href="tic-128.png" sizes="128x128" />
+    <link rel="icon" href="tic-64.png" sizes="64x64" />
+    <link rel="icon" href="tic-32.png" sizes="32x32" />
+    <link rel="icon" href="tic-16.png" sizes="16x16" />
+</head>
+
+<body>
+    <div id=app></div>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+
+</html>

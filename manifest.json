@@ -1,0 +1,36 @@
+{
+    "name": "Tic Tac Toe",
+    "short_name": "X and O",
+    "description": "A tic tac toe game",
+    "start_url": "/",
+    "background_color": "#fff",
+    "theme_color": "#396",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "tic-256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "tic-128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "tic-64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "tic-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "tic-16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ]
+}
