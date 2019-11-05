@@ -1,6 +1,7 @@
 @font-face {
   src: url(3ce1580b66db6742cecd4b41519fb5f1.otf);
-  font-family: "quicksand"; }
+  font-family: "quicksand";
+  font-display: auto; }
 
 .board {
   border: hidden;
