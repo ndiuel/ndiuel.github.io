@@ -5,7 +5,7 @@
     "start_url": "/",
     "background_color": "#fff",
     "theme_color": "#396",
-    "display": "standalone",
+    "display": "fullscreen",
     "icons": [
         {
             "src": "tic-512.png",

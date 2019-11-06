@@ -1,18 +1,18 @@
 'use strict';
 
-const CACHE_NAME = 'static-cache-v1';
+const CACHE_NAME = 'static-cache-v3';
 
 const FILES_TO_CACHE = [
-  "/index.html",
-  "/main.css",
-  "/3ce1580b66db6742cecd4b41519fb5f1.otf",
-  "/bundle.js",
-  "/tic-16.png",
-  "/tic-32.png",
-  "/tic-64.png",
-  "/tic-128.png",
-  "/tic-256.png",
-  "/tic-512.png"
+  // "/index.html",
+  // "/main.css",
+  // "/3ce1580b66db6742cecd4b41519fb5f1.otf",
+  // "/bundle.js",
+  // "/tic-16.png",
+  // "/tic-32.png",
+  // "/tic-64.png",
+  // "/tic-128.png",
+  // "/tic-256.png",
+  // "/tic-512.png"
 ];
 
 self.addEventListener('install', (evt) => {
@@ -44,21 +44,17 @@ self.addEventListener('activate', (evt) => {
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (evt) => {
-  console.log('[ServiceWorker] Fetch', evt.request.url);
-  // CODELAB: Add fetch event handler here.
-  if (evt.request.mode !== 'navigate') {
-    // Not a page navigation, bail.
-    return;
-  }
-  evt.respondWith(
-    fetch(evt.request)
-      .catch(() => {
-        return caches.open(CACHE_NAME)
-          .then((cache) => {
-            return cache.match(evt.request.url);
-          });
-      })
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((r) => {
+          console.log('[Service Worker] Fetching resource: '+e.request.url);
+      return r || fetch(e.request).then((response) => {
+                return caches.open(CACHE_NAME).then((cache) => {
+          console.log('[Service Worker] Caching new resource: '+e.request.url);
+          cache.put(e.request, response.clone());
+          return response;
+        });
+      });
+    })
   );
-
 });
