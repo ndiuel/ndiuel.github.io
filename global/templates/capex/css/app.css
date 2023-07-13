@@ -1,0 +1,186 @@
+#fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.contact-btn {
+    background: #000000;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.upper-footer-1 {
+    background-color: #E9ECF1
+}
+
+.upper-footer-1 p {
+    padding-bottom: 15px;
+}
+
+.upper-footer-1 div {
+    padding-bottom: 40px
+}
+
+.fl78222 {
+    display: flex;
+    padding-bottom: 0 !important
+}
+
+.fl78222 div {
+    padding-bottom: 0 !important
+}
+
+.upper-footer-1-icon {
+    width: 60px;
+    margin-right: 30px;
+}
+
+.py-40 {
+    padding-top: 40px;
+    padding-bottom: 40px
+}
+
+.pricing-table {
+    background: #fff;
+    box-shadow: 0px 1px 10px -6px rgb(0 0 0 / 15%);
+    padding: 2rem;
+    border-radius: 4px;
+    transition: .3s;
+    width: 30%;
+    margin: 0.5rem;
+}
+
+.purple .pricing-label {
+    background: #cad2ff;
+    color: #205AAC;
+}
+
+.pricing-table .pricing-label {
+    border-radius: 2px;
+    padding: .25rem .5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pricing-table h2 {
+    color: #3b3b3b;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.pricing-table h5 {
+    color: #B3B3B3;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.pricing-table .pricing-features {
+    margin-top: 2rem;
+}
+
+.pricing-table .pricing-features .feature_1 {
+    font-size: 14px;
+    margin: 1.5rem 0;
+    color: #B3B3B3;
+}
+
+.pricing-table .pricing-features .feature_1 span {
+    display: inline-block;
+    float: right;
+    color: #3b3b3b;
+    font-weight: 500;
+}
+
+.purple .price-tag {
+    color: #205AAC;
+}
+
+.pricing-table .price-tag {
+    margin-top: 2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.pricing-table .price-tag .symbol {
+    font-size: 24px;
+}
+
+.pricing-table .price-tag .amount {
+    letter-spacing: -2px;
+    font-size: 50px;
+}
+
+.pricing-table .price-tag .after {
+    color: #3b3b3b;
+    font-weight: 500;
+}
+
+.purple .price-button {
+    background: #205AAC;
+}
+
+.pricing-table .price-button {
+    display: block;
+    color: #fff;
+    margin-top: 2rem;
+    padding: .75rem;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.auth-holder-width {
+    position: relative;
+    width: 100%;
+}
+
+.auth-box {
+    width: 80%;
+    max-width: 550px;
+    min-width: 365px;
+}
+
+.nav-height {
+    height: 100vh !important;
+}
+
+.accordian-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.1s linear;
+    /* max-width: 90%; */
+}
+
+.accordian-title span {
+    transform-origin: center center;
+    transition: all 0.1s linear;
+    height: 24px;
+}
+
+.accordian-title.active span {
+    transform: rotate(45deg);
+    transform-origin: center center;
+    transition: all 0.1s linear;
+}
+
+.accordian-title.active span svg {
+    stroke: #f00;
+}
+
+.accordian-content {
+    display: none;
+    padding: 20px;
+    background: #f1f1f1;
+    max-width: 90%;
+    border-bottom: 1px solid #35aa04;
+}
